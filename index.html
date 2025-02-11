@@ -101,7 +101,44 @@
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4087030867528931"crossorigin="anonymous"></script>
     
         <script>(function(d,z,s){s.src='https://'+d+'/400/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('vemtoutcheeg.com',8896432,document.createElement('script'))</script>
-    
+
+    <script>
+        // Video sets for different sections
+        const videoSets = {
+            introduction: [
+                "ymn9jbEC3NE", "JoOJtVcOKxM", "1WEc8kZIs-8", "d5B8gNxedbY", "lwBvijahIY4"
+            ],
+            features: [
+                "Cg3jvey4Z0Q", "WD8FEvc8HTc", "Pzy0FkpHFIc", "DHY_TdgH63A", "QMbUSb60vPU"
+            ],
+            applications: [
+                "EhGTw7UEgQc", "OWJTBVZ9nwE", "6Tz5eqcaTO0", "csTdKU8xXiU", "tDeNBuS1eJI"
+            ],
+            gallery: [
+                "F0LtuM", "QxAZl6c", "l6P4JME", "wIMoh6I", "Xh4StQ8"
+            ]
+        };
+
+        function loadVideos(category) {
+            const videoContainer = document.getElementById("video-container");
+            videoContainer.innerHTML = ""; // Clear previous videos
+
+            videoSets[category].forEach(videoId => {
+                const iframe = document.createElement("iframe");
+                iframe.src = `https://www.youtube.com/embed/${videoId}`;
+                iframe.width = "19.5%";
+                iframe.height = "200";
+                iframe.frameBorder = "0";
+                iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+                iframe.allowFullscreen = true;
+                videoContainer.appendChild(iframe);
+            });
+        }
+
+        // Load default videos on page load
+        window.onload = () => loadVideos('introduction');
+    </script>
+
 
 </head>
 
@@ -113,10 +150,10 @@
 
     <nav>
         <ul>
-            <li><a href="#intro">Introduction</a></li>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#applications">Applications</a></li>
-            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#" onclick="loadVideos('introduction')">Introduction</a></li>
+            <li><a href="#" onclick="loadVideos('features')">Features</a></li>
+            <li><a href="#" onclick="loadVideos('applications')">Applications</a></li>
+            <li><a href="#" onclick="loadVideos('gallery')">Gallery</a></li>
         </ul>
     </nav>
 
@@ -129,17 +166,7 @@
     </section>
 
     <section>
-        <div class="Iframe-container">
-            <iframe src="https://www.youtube.com/embed/ymn9jbEC3NE?si=56ieL2wQe2HTF3iM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            
-            <iframe src="https://www.youtube.com/embed/JoOJtVcOKxM?si=xgyj4UAp0uE0A4IF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-            <iframe src="https://www.youtube.com/embed/1WEc8kZIs-8?si=2uw1KaDuYTPPCFN-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-            <iframe src="https://www.youtube.com/embed/d5B8gNxedbY?si=ikiua99n9e5iQi_O" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-            <iframe src="https://www.youtube.com/embed/lwBvijahIY4?si=MV2wAhzpxvOS-lfS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
+    	<div id="video-container" class="Iframe-container"></div>
     </section>
 
     <section id="features">
