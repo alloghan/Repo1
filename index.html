@@ -1,85 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Noon 10% OFF Promo Codes – BKFY, SLDV, VQGH, IVF K, LEME, EKIM</title>
 
-  <!-- 🧩 Essential Meta Tags for SEO -->
-  <meta name="description" content="Use Noon promo codes BKFY, SLDV, VQGH, IVF K, LEME or EKIM for 10% off in UAE & KSA. Limited-time Noon discount offer.">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Google supports description/meta for snippets and ranking context :contentReference[oaicite:1]{index=1} -->
+<form id="myForm">
+  <input name="firstName" placeholder="First Name" required>
+  <input name="lastName" placeholder="Last Name" required>
+  <input name="email" type="email" placeholder="Email Address" required>
+  <button type="submit">Submit</button>
+</form>
 
-  <!-- Open Graph & Social Sharing -->
-  <meta property="og:title" content="Noon 10% OFF Promo Codes – Limited Offer">
-  <meta property="og:description" content="Grab Noon’s 10% discount using promo codes BKFY, SLDV, VQGH, IVF K, LEME or EKIM in UAE & KSA.">
-  <meta property="og:image" content="https://yourdomain.com/images/noon-promo-codes-uae-ksa.png">
-  <meta property="og:url" content="https://yourdomain.com/noon-promo-codes.html">
-  <meta property="og:type" content="website">
+<script>
+  document.getElementById("myForm").addEventListener("submit", e => {
+    e.preventDefault();
+    fetch("https://script.google.com/macros/s/AKfycby6nFtkuIj0YMvMDK0_25vwu0ZsXf-Cfc-BuKmv_B3yRoDieo3YKUb9w99TIqRaVAuraw/exec", {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        firstName: e.target.firstName.value,
+        lastName: e.target.lastName.value,
+        email: e.target.email.value
+      })
+    }).then(() => {
+      alert("Form submitted successfully!");
+      e.target.reset();
+    }).catch(error => {
+      alert("Error: " + error);
+    });
+  });
+</script>
 
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "WebPage",
-    "name": "Noon 10% OFF Promo Codes",
-    "description": "Use promo codes BKFY, SLDV, VQGH, IVF K, LEME or EKIM for 10% off at Noon.com in UAE & KSA.",
-    "url": "https://yourdomain.com/noon-promo-codes.html",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Your Site",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://yourdomain.com/logo.png"
-      }
-    }
-  }
-  </script>
-
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body, html { height: 100%; }
-    body {
-      background-color: #0e214b;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      color: #f0f0f0;
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
-    main {
-      max-width: 600px;
-      width: 100%;
-    }
-    h1 {
-      font-size: 1.75rem;
-      margin-bottom: 0.5em;
-    }
-    p {
-      font-size: 1rem;
-      margin-bottom: 1.5em;
-      line-height: 1.5;
-    }
-    .promo-container img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 8px;
-    }
-    @media (max-width: 400px) {
-      body { padding: 10px; }
-      h1 { font-size: 1.5rem; }
-    }
-  </style>
-</head>
-<body>
-  <main>
-    <h1>Noon 10% OFF Promo Codes 🇦🇪 + 🇸🇦</h1>
-    <p>Use one of these valid <strong>Noon promo codes</strong> — <strong>BKFY, SLDV, VQGH, IVF K, LEME, EKIM</strong> — to get <strong>10% off</strong> your purchase at Noon.com. Limited-time offer for UAE & Saudi Arabia. Redeem now!</p>
-    <div class="promo-container">
-      <img src="BKFY.png" alt="Noon Promo Codes Image">
-    </div>
-  </main>
-</body>
-</html>
