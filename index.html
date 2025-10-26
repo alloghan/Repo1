@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🎉 Free Giveaway Entry</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -17,7 +14,7 @@
       justify-content: center;
       align-items: center;
       background: linear-gradient(135deg, #5f2c82, #49a09d);
-      font-family: 'Poppins', Arial, sans-serif;
+      font-family: 'Poppins', sans-serif;
       color: #fff;
     }
 
@@ -36,21 +33,19 @@
     h1 {
       margin-bottom: 0.5rem;
       font-size: 1.8rem;
-      letter-spacing: 1px;
     }
 
     p {
-      margin-bottom: 1.8rem;
-      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
       opacity: 0.9;
+      font-size: 0.95rem;
     }
 
-    /* Steps buttons */
     .steps {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 1.8rem;
-      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      gap: 0.4rem;
       flex-wrap: wrap;
     }
 
@@ -66,9 +61,20 @@
       transition: 0.3s;
     }
 
-    .steps button:hover {
+    .steps button:hover:not(:disabled) {
       background: linear-gradient(90deg, #ff9966, #ff5e62);
       box-shadow: 0 0 15px #ff5e62;
+    }
+
+    .steps button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .steps button.completed {
+      background: linear-gradient(90deg, #00c853, #009624);
+      box-shadow: 0 0 15px #00c853;
+      cursor: default;
     }
 
     form {
@@ -76,6 +82,14 @@
       flex-direction: column;
       align-items: center;
       width: 100%;
+      opacity: 0.4;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    form.active {
+      opacity: 1;
+      pointer-events: auto;
     }
 
     input {
@@ -116,14 +130,12 @@
       font-size: 0.95rem;
     }
 
-    /* Popup iframe modal */
+    /* Popup */
     #popup {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: rgba(0, 0, 0, 0.7);
       justify-content: center;
       align-items: center;
@@ -132,44 +144,86 @@
 
     #popupContent {
       position: relative;
-      width: 80%;
-      max-width: 600px;
-      height: 80%;
+      width: 85%;
+      max-width: 500px;
+      height: 70%;
       background: #fff;
-      border-radius: 10px;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
+      padding: 1.2rem;
     }
 
     #popup iframe {
       width: 100%;
       height: 100%;
       border: none;
+      display: none;
     }
 
     #closePopup {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      z-index: 10;
-      padding: 5px 10px;
-      cursor: pointer;
+      margin-top: 1rem;
+      padding: 0.6rem 1.5rem;
       font-weight: bold;
-      background: #ff5e62;
+      background: gray;
+      color: white;
       border: none;
-      border-radius: 5px;
-      color: #fff;
+      border-radius: 8px;
+      cursor: not-allowed;
+      transition: 0.3s;
+    }
+
+    #closePopup.enabled {
+      background: #ff5e62;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff5e62;
+    }
+
+    /* Timer Circle */
+    .timer-wrapper {
+      width: 120px;
+      height: 120px;
+      position: relative;
+    }
+
+    svg {
+      transform: rotate(-90deg);
+    }
+
+    circle {
+      fill: none;
+      stroke-width: 10;
+      stroke-linecap: round;
+    }
+
+    .bg {
+      stroke: #eee;
+    }
+
+    .progress {
+      stroke: #ff5e62;
+      stroke-dasharray: 314; /* 2 * π * r (r=50) */
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset 1s linear;
+    }
+
+    .timer-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #333;
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @media (max-width: 480px) {
@@ -178,60 +232,118 @@
         max-width: 90%;
       }
 
-      h1 {
-        font-size: 1.5rem;
-      }
-
-      p {
-        font-size: 0.85rem;
-      }
-
-      input,
-      button[type="submit"],
-      .steps button {
-        width: 100%;
-        font-size: 0.95rem;
-      }
+      h1 { font-size: 1.5rem; }
+      p { font-size: 0.85rem; }
     }
   </style>
 </head>
-
 <body>
-
   <div class="container">
     <h1>🎁 Enter Our Daily Giveaway!</h1>
-    <p>Fill in your details below for a chance to win $25!<br>Winners announced every day 🎉</p>
+    <p>Complete the 3 steps to unlock the entry form below 🎉</p>
 
-    <!-- Steps buttons -->
     <div class="steps">
-      <button id="step1">1️⃣ Follow Us</button>
-      <button onclick="document.getElementById('myForm').scrollIntoView({ behavior: 'smooth' });">2️⃣ Enter Details</button>
-      <button onclick="document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });">3️⃣ Win Daily!</button>
+      <button class="step" data-step="1">Step 1</button>
+      <button class="step" data-step="2" disabled>Step 2</button>
+      <button class="step" data-step="3" disabled>Step 3</button>
     </div>
 
     <form id="myForm">
-      <input name="firstName" placeholder="First Name" required>
-      <input name="lastName" placeholder="Last Name" required>
-      <input name="email" type="email" placeholder="Email Address" required>
-      <button type="submit">Enter Giveaway</button>
-      <div class="success" id="successMessage">✅ Entry submitted! Good luck 🍀</div>
+      <input name="firstName" placeholder="First Name" required disabled>
+      <input name="lastName" placeholder="Last Name" required disabled>
+      <input name="email" type="email" placeholder="Email Address" required disabled>
+      <button type="submit" disabled>Enter Giveaway</button>
+      <div class="success">✅ Entry submitted! Good luck 🍀</div>
     </form>
   </div>
 
-  <!-- Popup iframe modal -->
+  <!-- Popup -->
   <div id="popup">
     <div id="popupContent">
+      <div class="timer-wrapper">
+        <svg width="120" height="120">
+          <circle class="bg" cx="60" cy="60" r="50" />
+          <circle class="progress" cx="60" cy="60" r="50" />
+        </svg>
+        <div class="timer-text" id="timerText">10</div>
+      </div>
       <button id="closePopup">Close</button>
-      <iframe src="https://www.instagram.com/"></iframe>
+      <iframe src="https://example.com"></iframe>
     </div>
   </div>
 
   <script>
-    // Form submission
-    document.getElementById("myForm").addEventListener("submit", e => {
-      e.preventDefault();
+    const popup = document.getElementById('popup');
+    const closePopup = document.getElementById('closePopup');
+    const timerText = document.getElementById('timerText');
+    const progressCircle = document.querySelector('.progress');
+    const steps = document.querySelectorAll('.step');
+    const form = document.getElementById('myForm');
+    let currentStep = 1, countdownTimer;
 
-      fetch("https://script.google.com/macros/s/AKfycby6nFtkuIj0YMvMDK0_25vwu0ZsXf-Cfc-BuKmv_B3yRoDieo3YKUb9w99TIqRaVAuraw/exec", {
+    steps.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const stepNum = parseInt(btn.dataset.step);
+        if (stepNum !== currentStep || btn.classList.contains('completed')) return;
+        openPopup();
+      });
+    });
+
+    function openPopup() {
+      popup.style.display = 'flex';
+      closePopup.disabled = true;
+      closePopup.classList.remove('enabled');
+      let timeLeft = 3, total = 3;
+      updateTimer(timeLeft, total);
+
+      countdownTimer = setInterval(() => {
+        timeLeft--;
+        updateTimer(timeLeft, total);
+        if (timeLeft <= 0) {
+          clearInterval(countdownTimer);
+          enableClose();
+        }
+      }, 1000);
+    }
+
+    function updateTimer(timeLeft, total) {
+      const offset = 314 * (1 - timeLeft / total);
+      progressCircle.style.strokeDashoffset = offset;
+      timerText.textContent = timeLeft;
+    }
+
+    function enableClose() {
+      closePopup.disabled = false;
+      closePopup.classList.add('enabled');
+      timerText.textContent = "✅";
+    }
+
+    closePopup.addEventListener('click', () => {
+      if (closePopup.disabled) return;
+      popup.style.display = 'none';
+      clearInterval(countdownTimer);
+      markStepDone();
+    });
+
+    function markStepDone() {
+      const currentButton = document.querySelector(`.step[data-step="${currentStep}"]`);
+      currentButton.classList.add('completed');
+      currentButton.disabled = true;
+      const nextButton = document.querySelector(`.step[data-step="${currentStep + 1}"]`);
+      if (nextButton) nextButton.disabled = false;
+      else unlockForm();
+      currentStep++;
+    }
+
+    function unlockForm() {
+      form.classList.add('active');
+      form.querySelectorAll('input, button').forEach(el => el.disabled = false);
+    }
+
+    // Form submission
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      fetch("https://script.google.com/macros/s/AKfycbz2wabwCIBltF5kbR1nm-lPv-pvjW8k_ANsl-XmmD7aI9LtknUl_vOa1aQtGeuNqhV51g/exec", {
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "application/json" },
@@ -243,30 +355,13 @@
       }).then(() => {
         document.querySelector(".success").style.display = "block";
         e.target.reset();
-      }).catch(error => {
-        alert("Error: " + error);
       });
     });
-
-    // Popup iframe
-    const popup = document.getElementById('popup');
-    document.getElementById('step1').addEventListener('click', () => {
-      popup.style.display = 'flex';
-    });
-    document.getElementById('closePopup').addEventListener('click', () => {
-      popup.style.display = 'none';
-    });
-</script>
+  </script>
 
 
+<a href="sec.html">SEC</a>
 
-  
 
 </body>
 </html>
-
-
-
-
-
-
