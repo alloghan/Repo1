@@ -44,6 +44,23 @@
       font-size: 0.95rem;
     }
 
+    /* Winner section */
+    .winner {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 0.6rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: #fff;
+      font-weight: 500;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 1.2s ease;
+    }
+
+    .winner b {
+      color: #ffd900;
+    }
+
     .steps {
       display: flex;
       justify-content: space-between;
@@ -185,7 +202,6 @@
       box-shadow: 0 0 10px #ff5e62;
     }
 
-    /* Timer Circle */
     .timer-wrapper {
       width: 120px;
       height: 120px;
@@ -224,6 +240,23 @@
       color: #333;
     }
 
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-out {
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+
     @media (max-width: 480px) {
       .container {
         padding: 1.5rem;
@@ -238,18 +271,16 @@
         font-size: 0.85rem;
       }
     }
-
-    .fade-out {
-      opacity: 0;
-      transition: opacity 0.8s ease;
-    }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <h1>🎁 Enter Our Daily 25$ Giveaway!</h1>
+    <h1>🎁 Enter Our Daily Giveaway!</h1>
     <p>Complete the 3 steps to unlock the entry form below 🎉</p>
+
+    <!-- 🏆 Winner section -->
+    <div class="winner">🏆 Yesterday’s Winner: <b>Sarah M.</b></div>
 
     <div class="steps">
       <button class="step" data-step="1">Step 1</button>
@@ -290,7 +321,6 @@
     const form = document.getElementById('myForm');
     let currentStep = 1, countdownTimer;
 
-    // 👇 Define URLs for each step
     const stepLinks = {
       1: "https://otieu.com/4/10174041",
       2: "https://otieu.com/4/10174041",
@@ -302,10 +332,8 @@
         const stepNum = parseInt(btn.dataset.step);
         if (stepNum !== currentStep || btn.classList.contains('completed')) return;
 
-        // 👇 Open the link in a new tab
         const link = stepLinks[stepNum];
         if (link) window.open(link, "_blank");
-
         openPopup();
       });
     });
@@ -361,7 +389,6 @@
       form.querySelectorAll('input, button').forEach(el => el.disabled = false);
     }
 
-    // ✅ Fade out inputs after submission
     form.addEventListener("submit", e => {
       e.preventDefault();
       const submitBtn = form.querySelector('button[type="submit"]');
@@ -379,7 +406,6 @@
       }).then(() => {
         document.querySelector(".success").style.display = "block";
 
-        // Fade out all inputs smoothly
         form.querySelectorAll('input').forEach(input => {
           input.classList.add("fade-out");
           setTimeout(() => input.style.display = "none", 800);
@@ -388,6 +414,4 @@
     });
   </script>
 </body>
-
 </html>
-
